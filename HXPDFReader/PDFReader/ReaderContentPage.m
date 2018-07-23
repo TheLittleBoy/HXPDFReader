@@ -517,15 +517,6 @@
 	CGPDFDocumentRelease(_PDFDocRef), _PDFDocRef = NULL;
 }
 
-#if (READER_DISABLE_RETINA == TRUE) // Option
-
-- (void)didMoveToWindow
-{
-	self.contentScaleFactor = 1.0f; // Override scale factor
-}
-
-#endif // end of READER_DISABLE_RETINA Option
-
 #pragma mark - CATiledLayer delegate methods
 
 - (void)drawLayer:(CATiledLayer *)layer inContext:(CGContextRef)context
