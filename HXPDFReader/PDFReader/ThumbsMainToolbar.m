@@ -62,12 +62,7 @@
 	{
 		CGFloat viewWidth = self.bounds.size.width; // Toolbar view width
 
-#if (READER_FLAT_UI == TRUE) // Option
 		UIImage *buttonH = nil; UIImage *buttonN = nil;
-#else
-		UIImage *buttonH = [[UIImage imageNamed:@"Reader-Button-H"] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
-		UIImage *buttonN = [[UIImage imageNamed:@"Reader-Button-N"] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
-#endif // end of READER_FLAT_UI Option
 
 		BOOL largeDevice = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 
@@ -140,10 +135,6 @@
 			titleLabel.adjustsFontSizeToFitWidth = YES;
 			titleLabel.minimumScaleFactor = 0.75f;
 			titleLabel.text = title;
-#if (READER_FLAT_UI == FALSE) // Option
-			titleLabel.shadowColor = [UIColor colorWithWhite:0.65f alpha:1.0f];
-			titleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-#endif // end of READER_FLAT_UI Option
 
 			[self addSubview:titleLabel];
 		}

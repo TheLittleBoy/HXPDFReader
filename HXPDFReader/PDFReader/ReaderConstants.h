@@ -29,7 +29,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define READER_FLAT_UI TRUE
 #define READER_SHOW_SHADOWS TRUE
 #define READER_ENABLE_THUMBS TRUE
 #define READER_DISABLE_RETINA FALSE
