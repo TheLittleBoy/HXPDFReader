@@ -260,21 +260,6 @@
 	[delegate tappedInToolbar:self thumbsButton:button];
 }
 
-- (void)exportButtonTapped:(UIButton *)button
-{
-	[delegate tappedInToolbar:self exportButton:button];
-}
-
-- (void)printButtonTapped:(UIButton *)button
-{
-	[delegate tappedInToolbar:self printButton:button];
-}
-
-- (void)emailButtonTapped:(UIButton *)button
-{
-	[delegate tappedInToolbar:self emailButton:button];
-}
-
 - (void)markButtonTapped:(UIButton *)button
 {
 	[delegate tappedInToolbar:self markButton:button];
