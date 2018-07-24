@@ -176,10 +176,6 @@
 				044CAB1F210601F00099EAF5 /* ReaderConstants.m */,
 				044CAB23210601F00099EAF5 /* ReaderDocument.h */,
 				044CAB20210601F00099EAF5 /* ReaderDocument.m */,
-				044CAB27210601F00099EAF5 /* ReaderContentPage.h */,
-				044CAB2C210601F00099EAF5 /* ReaderContentPage.m */,
-				044CAB1C210601EF0099EAF5 /* ReaderContentTile.h */,
-				044CAB28210601F00099EAF5 /* ReaderContentTile.m */,
 				045191FD2106BE9C0059DEA0 /* 顶部工具栏 */,
 				045191FC2106BE6E0059DEA0 /* 底部工具栏 */,
 				045191FF2106CD1C0059DEA0 /* 横向滚动大图 */,
@@ -222,6 +218,10 @@
 		045191FF2106CD1C0059DEA0 /* 横向滚动大图 */ = {
 			isa = PBXGroup;
 			children = (
+				044CAB27210601F00099EAF5 /* ReaderContentPage.h */,
+				044CAB2C210601F00099EAF5 /* ReaderContentPage.m */,
+				044CAB1C210601EF0099EAF5 /* ReaderContentTile.h */,
+				044CAB28210601F00099EAF5 /* ReaderContentTile.m */,
 				044CAB1D210601EF0099EAF5 /* ReaderContentView.h */,
 				044CAB24210601F00099EAF5 /* ReaderContentView.m */,
 				044CAB2D210601F10099EAF5 /* ReaderViewController.h */,

@@ -26,6 +26,6 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface ReaderContentTile : CATiledLayer
+@interface ReaderContentTile : CATiledLayer  //异步地一块一块地绘制内容
 
 @end
