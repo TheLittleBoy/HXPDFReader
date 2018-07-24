@@ -163,13 +163,9 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 
 			self.contentSize = theContentPage.bounds.size; [self centerScrollViewContent];
 
-#if (READER_ENABLE_PREVIEW == TRUE) // Option
-
 			theThumbView = [[ReaderContentThumb alloc] initWithFrame:theContentPage.bounds]; // Page thumb view
 
 			[theContainerView addSubview:theThumbView]; // Add the page thumb view to the container view
-
-#endif // end of READER_ENABLE_PREVIEW Option
 
 			[theContainerView addSubview:theContentPage]; // Add the content page to the container view
 
@@ -229,8 +225,6 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 
 - (void)showPageThumb:(NSURL *)fileURL page:(NSInteger)page password:(NSString *)phrase guid:(NSString *)guid
 {
-#if (READER_ENABLE_PREVIEW == TRUE) // Option
-
 	CGSize size = ((userInterfaceIdiom == UIUserInterfaceIdiomPad) ? CGSizeMake(PAGE_THUMB_LARGE, PAGE_THUMB_LARGE) : CGSizeMake(PAGE_THUMB_SMALL, PAGE_THUMB_SMALL));
 
 	ReaderThumbRequest *request = [ReaderThumbRequest newForView:theThumbView fileURL:fileURL password:phrase guid:guid page:page size:size];
@@ -238,8 +232,6 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 	UIImage *image = [[ReaderThumbCache sharedInstance] thumbRequest:request priority:YES]; // Request the page thumb
 
 	if ([image isKindOfClass:[UIImage class]]) [theThumbView showImage:image]; // Show image from cache
-
-#endif // end of READER_ENABLE_PREVIEW Option
 }
 
 - (id)processSingleTap:(UITapGestureRecognizer *)recognizer
