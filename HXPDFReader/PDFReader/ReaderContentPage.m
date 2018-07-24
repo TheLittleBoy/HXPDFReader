@@ -137,6 +137,7 @@
 	return documentLink;
 }
 
+//解析 文中的 超链接
 - (void)buildAnnotationLinksList
 {
 	_links = [NSMutableArray new]; // Links list array
@@ -479,7 +480,9 @@
 			}
 			else // Error out with a diagnostic
 			{
-				CGPDFDocumentRelease(_PDFDocRef), _PDFDocRef = NULL;
+                CGPDFDocumentRelease(_PDFDocRef);
+                
+                _PDFDocRef = NULL;
 
 				NSAssert(NO, @"CGPDFPageRef == NULL");
 			}
@@ -512,9 +515,11 @@
 
 - (void)dealloc
 {
-	CGPDFPageRelease(_PDFPageRef), _PDFPageRef = NULL;
+    CGPDFPageRelease(_PDFPageRef);
+    _PDFPageRef = NULL;
 
-	CGPDFDocumentRelease(_PDFDocRef), _PDFDocRef = NULL;
+    CGPDFDocumentRelease(_PDFDocRef);
+    _PDFDocRef = NULL;
 }
 
 #pragma mark - CATiledLayer delegate methods
@@ -529,7 +534,9 @@
 
 	//NSLog(@"%s %@", __FUNCTION__, NSStringFromCGRect(CGContextGetClipBoundingBox(context)));
 
-	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height); CGContextScaleCTM(context, 1.0f, -1.0f);
+	CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
+    
+    CGContextScaleCTM(context, 1.0f, -1.0f);
 
 	CGContextConcatCTM(context, CGPDFPageGetDrawingTransform(_PDFPageRef, kCGPDFCropBox, self.bounds, 0, true));
 
