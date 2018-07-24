@@ -30,7 +30,7 @@
 #import <Foundation/Foundation.h>
 
 #define READER_SHOW_SHADOWS TRUE    //背景阴影
-#define READER_ENABLE_THUMBS TRUE
+#define READER_ENABLE_THUMBS TRUE   //缩略图按钮
 #define READER_DISABLE_IDLE FALSE   //屏幕常亮
-#define READER_STANDALONE FALSE
-#define READER_BOOKMARKS TRUE
+#define READER_STANDALONE FALSE     //Done 按钮
+#define READER_BOOKMARKS TRUE       //书签功能
