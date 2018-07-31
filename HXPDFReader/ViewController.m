@@ -19,24 +19,18 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor clearColor]; // Transparent
+    self.view.backgroundColor = [UIColor whiteColor]; // Transparent
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    
     NSString *name = [infoDictionary objectForKey:@"CFBundleName"];
-    
     NSString *version = [infoDictionary objectForKey:@"CFBundleVersion"];
-    
     self.title = [[NSString alloc] initWithFormat:@"%@ v%@", name, version];
     
     CGSize viewSize = self.view.bounds.size;
-    
     CGRect labelRect = CGRectMake(0.0f, 0.0f, 80.0f, 32.0f);
-    
     UILabel *tapLabel = [[UILabel alloc] initWithFrame:labelRect];
-    
+    tapLabel.userInteractionEnabled = YES;
     tapLabel.text = NSLocalizedString(@"Tap", @"text");
-    tapLabel.textColor = [UIColor whiteColor];
     tapLabel.textAlignment = NSTextAlignmentCenter;
     tapLabel.backgroundColor = [UIColor clearColor];
     tapLabel.font = [UIFont systemFontOfSize:24.0f];
@@ -44,11 +38,10 @@
     tapLabel.autoresizingMask |= UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     tapLabel.center = CGPointMake(viewSize.width * 0.5f, viewSize.height * 0.5f);
     
-    [self.view addSubview:tapLabel];
-    
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-    //singleTap.numberOfTouchesRequired = 1; singleTap.numberOfTapsRequired = 1; //singleTap.delegate = self;
-    [self.view addGestureRecognizer:singleTap];
+    [tapLabel addGestureRecognizer:singleTap];
+    
+    [self.view addSubview:tapLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated
