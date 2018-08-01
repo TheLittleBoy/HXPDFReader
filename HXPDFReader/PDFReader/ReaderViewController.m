@@ -309,7 +309,9 @@
 
 			scrollViewOutset = ((userInterfaceIdiom == UIUserInterfaceIdiomPad) ? SCROLLVIEW_OUTSET_LARGE : SCROLLVIEW_OUTSET_SMALL);
 
-			[object updateDocumentProperties]; document = object; // Retain the supplied ReaderDocument object for our use
+			[object updateDocumentProperties];
+            
+            document = object; // Retain the supplied ReaderDocument object for our use
 
 			[ReaderThumbCache touchThumbCacheWithGUID:object.guid]; // Touch the document thumb cache directory
 		}

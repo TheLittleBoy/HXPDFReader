@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0415F1A5211161BE0001E6A1 /* HXPDFDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 0415F1A4211161BE0001E6A1 /* HXPDFDocument.m */; };
 		042A9AA22102FDB700555BCE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A9AA12102FDB700555BCE /* AppDelegate.m */; };
 		042A9AA52102FDB700555BCE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A9AA42102FDB700555BCE /* ViewController.m */; };
 		042A9AA82102FDB700555BCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 042A9AA62102FDB700555BCE /* Main.storyboard */; };
@@ -37,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0415F1A3211161BE0001E6A1 /* HXPDFDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXPDFDocument.h; sourceTree = "<group>"; };
+		0415F1A4211161BE0001E6A1 /* HXPDFDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXPDFDocument.m; sourceTree = "<group>"; };
 		042A9A9D2102FDB700555BCE /* HXPDFReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HXPDFReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		042A9AA02102FDB700555BCE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		042A9AA12102FDB700555BCE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -101,6 +104,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0415F1A2211161930001E6A1 /* HXPDFReader */ = {
+			isa = PBXGroup;
+			children = (
+				0415F1A3211161BE0001E6A1 /* HXPDFDocument.h */,
+				0415F1A4211161BE0001E6A1 /* HXPDFDocument.m */,
+			);
+			path = HXPDFReader;
+			sourceTree = "<group>";
+		};
 		042A9A942102FDB700555BCE = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +137,7 @@
 				042A9AA12102FDB700555BCE /* AppDelegate.m */,
 				042A9AA32102FDB700555BCE /* ViewController.h */,
 				042A9AA42102FDB700555BCE /* ViewController.m */,
+				0415F1A2211161930001E6A1 /* HXPDFReader */,
 				042A9AB62103161500555BCE /* PDFReader */,
 				042A9AA62102FDB700555BCE /* Main.storyboard */,
 				042A9AA92102FDB800555BCE /* Assets.xcassets */,
@@ -320,6 +333,7 @@
 				042A9AD32103167400555BCE /* ReaderThumbRender.m in Sources */,
 				044CAB31210601F10099EAF5 /* ReaderConstants.m in Sources */,
 				044CAB32210601F10099EAF5 /* ReaderDocument.m in Sources */,
+				0415F1A5211161BE0001E6A1 /* HXPDFDocument.m in Sources */,
 				044CAB39210601F10099EAF5 /* ThumbsViewController.m in Sources */,
 				044CAB33210601F10099EAF5 /* ReaderMainPagebar.m in Sources */,
 				042A9AD02103167400555BCE /* UIXToolbarView.m in Sources */,
