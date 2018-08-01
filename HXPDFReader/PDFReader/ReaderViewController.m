@@ -65,8 +65,6 @@
 
 #pragma mark - Constants
 
-#define STATUS_HEIGHT 20.0f
-
 #define TOOLBAR_HEIGHT 44.0f
 #define PAGEBAR_HEIGHT 48.0f
 
@@ -99,10 +97,9 @@
 		{
 			NSInteger page = [key integerValue]; // Page number value
 
-			CGRect viewRect = CGRectZero; viewRect.size = scrollView.bounds.size;
-
+			CGRect viewRect = CGRectZero;
+            viewRect.size = scrollView.bounds.size;
 			viewRect.origin.x = (viewRect.size.width * (page - 1)); // Update X
-
             contentView.frame = CGRectInset(viewRect, self->scrollViewOutset, 0.0f);
 		}
 	];
@@ -123,11 +120,15 @@
 
 - (void)addContentView:(UIScrollView *)scrollView page:(NSInteger)page
 {
-	CGRect viewRect = CGRectZero; viewRect.size = scrollView.bounds.size;
+	CGRect viewRect = CGRectZero;
+    viewRect.size = scrollView.bounds.size;
 
-	viewRect.origin.x = (viewRect.size.width * (page - 1)); viewRect = CGRectInset(viewRect, scrollViewOutset, 0.0f);
+	viewRect.origin.x = (viewRect.size.width * (page - 1));
+    viewRect = CGRectInset(viewRect, scrollViewOutset, 0.0f);
 
-	NSURL *fileURL = document.fileURL; NSString *phrase = document.password; NSString *guid = document.guid; // Document properties
+	NSURL *fileURL = document.fileURL;
+    NSString *phrase = document.password;
+    NSString *guid = document.guid; // Document properties
 
 	ReaderContentView *contentView = [[ReaderContentView alloc] initWithFrame:viewRect fileURL:fileURL page:page password:phrase]; // ReaderContentView
 
@@ -212,7 +213,8 @@
 
 	if (page != currentPage) // Only if on different page
 	{
-		currentPage = page; document.pageNumber = [NSNumber numberWithInteger:page];
+		currentPage = page;
+        document.pageNumber = [NSNumber numberWithInteger:page];
 
 		[contentViews enumerateKeysAndObjectsUsingBlock: // Enumerate content views
 			^(NSNumber *key, ReaderContentView *contentView, BOOL *stop)
@@ -238,7 +240,9 @@
 	{
 		if ((page < minimumPage) || (page > maximumPage)) return;
 
-		currentPage = page; document.pageNumber = [NSNumber numberWithInteger:page];
+		currentPage = page;
+        
+        document.pageNumber = [NSNumber numberWithInteger:page];
 
 		CGPoint contentOffset = CGPointMake((theScrollView.bounds.size.width * (page - 1)), 0.0f);
 
@@ -333,34 +337,26 @@
 {
 	[super viewDidLoad];
 
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
 	assert(document != nil); // Must have a valid ReaderDocument
 
 	self.view.backgroundColor = [UIColor grayColor]; // Neutral gray
 
-	UIView *fakeStatusBar = nil; CGRect viewRect = self.view.bounds; // View bounds
-
-	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) // iOS 7+
-	{
-		if ([self prefersStatusBarHidden] == NO) // Visible status bar
-		{
-			CGRect statusBarRect = viewRect; statusBarRect.size.height = STATUS_HEIGHT;
-			fakeStatusBar = [[UIView alloc] initWithFrame:statusBarRect]; // UIView
-			fakeStatusBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-			fakeStatusBar.backgroundColor = [UIColor blackColor];
-			fakeStatusBar.contentMode = UIViewContentModeRedraw;
-			fakeStatusBar.userInteractionEnabled = NO;
-
-			viewRect.origin.y += STATUS_HEIGHT; viewRect.size.height -= STATUS_HEIGHT;
-		}
-	}
+    CGRect viewRect = self.view.bounds; // View bounds
 
 	CGRect scrollViewRect = CGRectInset(viewRect, -scrollViewOutset, 0.0f);
 	theScrollView = [[UIScrollView alloc] initWithFrame:scrollViewRect]; // All
-	theScrollView.autoresizesSubviews = NO; theScrollView.contentMode = UIViewContentModeRedraw;
-	theScrollView.showsHorizontalScrollIndicator = NO; theScrollView.showsVerticalScrollIndicator = NO;
-	theScrollView.scrollsToTop = NO; theScrollView.delaysContentTouches = NO; theScrollView.pagingEnabled = YES;
+	theScrollView.autoresizesSubviews = NO;
+    theScrollView.contentMode = UIViewContentModeRedraw;
+	theScrollView.showsHorizontalScrollIndicator = NO;
+    theScrollView.showsVerticalScrollIndicator = NO;
+	theScrollView.scrollsToTop = NO;
+    theScrollView.delaysContentTouches = NO;
+    theScrollView.pagingEnabled = YES;
 	theScrollView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-	theScrollView.backgroundColor = [UIColor clearColor]; theScrollView.delegate = self;
+	theScrollView.backgroundColor = [UIColor clearColor];
+    theScrollView.delegate = self;
 	[self.view addSubview:theScrollView];
 
 	CGRect toolbarRect = viewRect; toolbarRect.size.height = TOOLBAR_HEIGHT;
@@ -368,13 +364,12 @@
 	mainToolbar.delegate = self; // ReaderMainToolbarDelegate
 	[self.view addSubview:mainToolbar];
 
-	CGRect pagebarRect = self.view.bounds; pagebarRect.size.height = PAGEBAR_HEIGHT;
+	CGRect pagebarRect = self.view.bounds;
+    pagebarRect.size.height = PAGEBAR_HEIGHT;
 	pagebarRect.origin.y = (self.view.bounds.size.height - pagebarRect.size.height);
 	mainPagebar = [[ReaderMainPagebar alloc] initWithFrame:pagebarRect document:document]; // ReaderMainPagebar
 	mainPagebar.delegate = self; // ReaderMainPagebarDelegate
 	[self.view addSubview:mainPagebar];
-
-	if (fakeStatusBar != nil) [self.view addSubview:fakeStatusBar]; // Add status bar background view
 
 	UITapGestureRecognizer *singleTapOne = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
 	singleTapOne.numberOfTouchesRequired = 1; singleTapOne.numberOfTapsRequired = 1; singleTapOne.delegate = self;
@@ -442,11 +437,6 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
-}
-
-- (BOOL)prefersStatusBarHidden
-{
-	return YES;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
