@@ -35,6 +35,13 @@
 		044CAB38210601F10099EAF5 /* ReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CAB2E210601F10099EAF5 /* ReaderViewController.m */; };
 		044CAB39210601F10099EAF5 /* ThumbsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CAB2F210601F10099EAF5 /* ThumbsViewController.m */; };
 		044CAB3B210602010099EAF5 /* 1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 044CAB3A210602010099EAF5 /* 1.pdf */; };
+		04BCBF9B2111DC3000D356FB /* HXPDFReaderThumbCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BCBF8D2111DC2F00D356FB /* HXPDFReaderThumbCache.m */; };
+		04BCBF9C2111DC3000D356FB /* HXPDFReaderThumbFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BCBF8E2111DC2F00D356FB /* HXPDFReaderThumbFetch.m */; };
+		04BCBF9D2111DC3000D356FB /* HXPDFReaderThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BCBF8F2111DC2F00D356FB /* HXPDFReaderThumbView.m */; };
+		04BCBF9E2111DC3000D356FB /* HXPDFReaderThumbRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BCBF912111DC3000D356FB /* HXPDFReaderThumbRender.m */; };
+		04BCBF9F2111DC3000D356FB /* HXPDFReaderThumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BCBF922111DC3000D356FB /* HXPDFReaderThumbsView.m */; };
+		04BCBFA02111DC3000D356FB /* HXPDFReaderThumbRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BCBF932111DC3000D356FB /* HXPDFReaderThumbRequest.m */; };
+		04BCBFA12111DC3000D356FB /* HXPDFReaderThumbQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BCBF9A2111DC3000D356FB /* HXPDFReaderThumbQueue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +98,20 @@
 		044CAB2E210601F10099EAF5 /* ReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderViewController.m; sourceTree = "<group>"; };
 		044CAB2F210601F10099EAF5 /* ThumbsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbsViewController.m; sourceTree = "<group>"; };
 		044CAB3A210602010099EAF5 /* 1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 1.pdf; sourceTree = "<group>"; };
+		04BCBF8D2111DC2F00D356FB /* HXPDFReaderThumbCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPDFReaderThumbCache.m; sourceTree = "<group>"; };
+		04BCBF8E2111DC2F00D356FB /* HXPDFReaderThumbFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPDFReaderThumbFetch.m; sourceTree = "<group>"; };
+		04BCBF8F2111DC2F00D356FB /* HXPDFReaderThumbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPDFReaderThumbView.m; sourceTree = "<group>"; };
+		04BCBF902111DC2F00D356FB /* HXPDFReaderThumbFetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPDFReaderThumbFetch.h; sourceTree = "<group>"; };
+		04BCBF912111DC3000D356FB /* HXPDFReaderThumbRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPDFReaderThumbRender.m; sourceTree = "<group>"; };
+		04BCBF922111DC3000D356FB /* HXPDFReaderThumbsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPDFReaderThumbsView.m; sourceTree = "<group>"; };
+		04BCBF932111DC3000D356FB /* HXPDFReaderThumbRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPDFReaderThumbRequest.m; sourceTree = "<group>"; };
+		04BCBF942111DC3000D356FB /* HXPDFReaderThumbsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPDFReaderThumbsView.h; sourceTree = "<group>"; };
+		04BCBF952111DC3000D356FB /* HXPDFReaderThumbCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPDFReaderThumbCache.h; sourceTree = "<group>"; };
+		04BCBF962111DC3000D356FB /* HXPDFReaderThumbRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPDFReaderThumbRender.h; sourceTree = "<group>"; };
+		04BCBF972111DC3000D356FB /* HXPDFReaderThumbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPDFReaderThumbView.h; sourceTree = "<group>"; };
+		04BCBF982111DC3000D356FB /* HXPDFReaderThumbQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPDFReaderThumbQueue.h; sourceTree = "<group>"; };
+		04BCBF992111DC3000D356FB /* HXPDFReaderThumbRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXPDFReaderThumbRequest.h; sourceTree = "<group>"; };
+		04BCBF9A2111DC3000D356FB /* HXPDFReaderThumbQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPDFReaderThumbQueue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +130,20 @@
 			children = (
 				0415F1A3211161BE0001E6A1 /* HXPDFDocument.h */,
 				0415F1A4211161BE0001E6A1 /* HXPDFDocument.m */,
+				04BCBF952111DC3000D356FB /* HXPDFReaderThumbCache.h */,
+				04BCBF8D2111DC2F00D356FB /* HXPDFReaderThumbCache.m */,
+				04BCBF902111DC2F00D356FB /* HXPDFReaderThumbFetch.h */,
+				04BCBF8E2111DC2F00D356FB /* HXPDFReaderThumbFetch.m */,
+				04BCBF982111DC3000D356FB /* HXPDFReaderThumbQueue.h */,
+				04BCBF9A2111DC3000D356FB /* HXPDFReaderThumbQueue.m */,
+				04BCBF962111DC3000D356FB /* HXPDFReaderThumbRender.h */,
+				04BCBF912111DC3000D356FB /* HXPDFReaderThumbRender.m */,
+				04BCBF992111DC3000D356FB /* HXPDFReaderThumbRequest.h */,
+				04BCBF932111DC3000D356FB /* HXPDFReaderThumbRequest.m */,
+				04BCBF942111DC3000D356FB /* HXPDFReaderThumbsView.h */,
+				04BCBF922111DC3000D356FB /* HXPDFReaderThumbsView.m */,
+				04BCBF972111DC3000D356FB /* HXPDFReaderThumbView.h */,
+				04BCBF8F2111DC2F00D356FB /* HXPDFReaderThumbView.m */,
 			);
 			path = HXPDFReader;
 			sourceTree = "<group>";
@@ -317,24 +352,31 @@
 				042A9AD22103167400555BCE /* ReaderThumbFetch.m in Sources */,
 				044CAB35210601F10099EAF5 /* ReaderContentTile.m in Sources */,
 				042A9ACE2103167400555BCE /* ReaderThumbCache.m in Sources */,
+				04BCBF9D2111DC3000D356FB /* HXPDFReaderThumbView.m in Sources */,
 				042A9ACF2103167400555BCE /* ReaderThumbsView.m in Sources */,
 				044CAB37210601F10099EAF5 /* ReaderContentPage.m in Sources */,
+				04BCBF9B2111DC3000D356FB /* HXPDFReaderThumbCache.m in Sources */,
 				042A9AD42103167400555BCE /* ReaderThumbRequest.m in Sources */,
 				042A9AA52102FDB700555BCE /* ViewController.m in Sources */,
 				042A9ACD2103167400555BCE /* ReaderThumbView.m in Sources */,
 				042A9ACC2103167400555BCE /* ReaderThumbQueue.m in Sources */,
+				04BCBFA12111DC3000D356FB /* HXPDFReaderThumbQueue.m in Sources */,
+				04BCBF9F2111DC3000D356FB /* HXPDFReaderThumbsView.m in Sources */,
 				044CAB30210601F10099EAF5 /* ThumbsMainToolbar.m in Sources */,
 				042A9AB02102FDB800555BCE /* main.m in Sources */,
+				04BCBFA02111DC3000D356FB /* HXPDFReaderThumbRequest.m in Sources */,
 				044CAB34210601F10099EAF5 /* ReaderContentView.m in Sources */,
 				042A9AD52103167400555BCE /* ReaderDocumentOutline.m in Sources */,
 				044CAB38210601F10099EAF5 /* ReaderViewController.m in Sources */,
 				042A9AA22102FDB700555BCE /* AppDelegate.m in Sources */,
 				044CAB36210601F10099EAF5 /* ReaderMainToolbar.m in Sources */,
+				04BCBF9C2111DC3000D356FB /* HXPDFReaderThumbFetch.m in Sources */,
 				042A9AD32103167400555BCE /* ReaderThumbRender.m in Sources */,
 				044CAB31210601F10099EAF5 /* ReaderConstants.m in Sources */,
 				044CAB32210601F10099EAF5 /* ReaderDocument.m in Sources */,
 				0415F1A5211161BE0001E6A1 /* HXPDFDocument.m in Sources */,
 				044CAB39210601F10099EAF5 /* ThumbsViewController.m in Sources */,
+				04BCBF9E2111DC3000D356FB /* HXPDFReaderThumbRender.m in Sources */,
 				044CAB33210601F10099EAF5 /* ReaderMainPagebar.m in Sources */,
 				042A9AD02103167400555BCE /* UIXToolbarView.m in Sources */,
 				042A9AD12103167400555BCE /* CGPDFDocument.m in Sources */,
