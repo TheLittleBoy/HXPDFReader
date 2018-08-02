@@ -47,7 +47,7 @@
 		self.alwaysBounceVertical = YES;
 		self.contentMode = UIViewContentModeRedraw;
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		self.backgroundColor = [UIColor clearColor];
+		self.backgroundColor = [UIColor grayColor];
 
 		[super setDelegate:self]; // Set the superclass UIScrollView delegate
 
@@ -74,7 +74,9 @@
 
 	[thumbCellsVisible removeObject:tvCell];
 
-	tvCell.tag = NSIntegerMin; tvCell.hidden = YES;
+	tvCell.tag = NSIntegerMin;
+    
+    tvCell.hidden = YES;
 
 	[tvCell reuse]; // Reuse the cell
 }
@@ -167,7 +169,9 @@
 
 	NSInteger thumbX = (((index % _thumbsX) * _thumbSize.width) + _thumbX);
 
-	thumbRect.origin.x = thumbX; thumbRect.origin.y = thumbY;
+	thumbRect.origin.x = thumbX;
+    
+    thumbRect.origin.y = thumbY;
 
 	return thumbRect;
 }

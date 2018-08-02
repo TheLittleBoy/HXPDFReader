@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ReaderViewController.h"
+#import "HXTestViewController.h"
 
 @interface ViewController () <ReaderViewControllerDelegate>
 
@@ -76,8 +77,6 @@
 {
     [super viewWillDisappear:animated];
     
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -92,7 +91,7 @@
 {
     NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
     
-    NSString *filePath = filePath = [[NSBundle mainBundle] pathForResource:@"1" ofType:@"pdf"];
+    NSString *filePath = filePath = [[NSBundle mainBundle] pathForResource:@"2" ofType:@"pdf"];
     
     ReaderDocument *document = [ReaderDocument withDocumentFilePath:filePath password:phrase];
     
@@ -103,7 +102,8 @@
         readerViewController.delegate = self; // Set the ReaderViewController delegate to self
         
         [self.navigationController pushViewController:readerViewController animated:YES];
-
+        
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
     }
     else // Log an error so that we know that something went wrong
     {
@@ -113,25 +113,10 @@
 
 - (void)handleSingleTap2:(UITapGestureRecognizer *)recognizer
 {
-    NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
     
-    NSString *filePath = filePath = [[NSBundle mainBundle] pathForResource:@"1" ofType:@"pdf"];
+    HXTestViewController *testVC = [[HXTestViewController alloc] init];
     
-    ReaderDocument *document = [ReaderDocument withDocumentFilePath:filePath password:phrase];
-    
-    if (document != nil) // Must have a valid ReaderDocument object in order to proceed with things
-    {
-        ReaderViewController *readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document];
-        
-        readerViewController.delegate = self; // Set the ReaderViewController delegate to self
-        
-        [self.navigationController pushViewController:readerViewController animated:YES];
-        
-    }
-    else // Log an error so that we know that something went wrong
-    {
-        NSLog(@"%s [ReaderDocument withDocumentFilePath:'%@' password:'%@'] failed.", __FUNCTION__, filePath, phrase);
-    }
+    [self.navigationController pushViewController:testVC animated:YES];
 }
 
 #pragma mark - ReaderViewControllerDelegate methods

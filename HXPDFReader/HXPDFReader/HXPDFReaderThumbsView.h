@@ -11,7 +11,7 @@
 
 @class HXPDFReaderThumbsView;
 
-@protocol ReaderThumbsViewDelegate <NSObject, UIScrollViewDelegate>
+@protocol HXPDFReaderThumbsViewDelegate <NSObject, UIScrollViewDelegate>
 
 @required // Delegate protocols
 
@@ -33,7 +33,7 @@
 
 @interface HXPDFReaderThumbsView : UIScrollView
 
-@property (nonatomic, weak, readwrite) id <ReaderThumbsViewDelegate> delegate;
+@property (nonatomic, weak, readwrite) id <HXPDFReaderThumbsViewDelegate> delegate;
 
 - (void)setThumbSize:(CGSize)thumbSize;
 

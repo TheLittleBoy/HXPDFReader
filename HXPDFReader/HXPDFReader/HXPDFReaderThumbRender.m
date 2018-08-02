@@ -59,7 +59,9 @@
     
     NSString *password = request.password;
 
-	CGImageRef imageRef = NULL; CFURLRef fileURL = (__bridge CFURLRef)request.fileURL;
+	CGImageRef imageRef = NULL;
+    
+    CFURLRef fileURL = (__bridge CFURLRef)request.fileURL;
 
 	CGPDFDocumentRef thePDFDocRef = CGPDFDocumentCreateUsingUrl(fileURL, password);
 
@@ -125,7 +127,9 @@
 			{
 				CGRect thumbRect = CGRectMake(0.0f, 0.0f, target_w, target_h); // Target thumb rect
 
-				CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f); CGContextFillRect(context, thumbRect); // White fill
+				CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f);
+                
+                CGContextFillRect(context, thumbRect); // White fill
 
 				CGContextConcatCTM(context, CGPDFPageGetDrawingTransform(thePDFPageRef, kCGPDFCropBox, thumbRect, 0, true)); // Fit rect
 
@@ -158,7 +162,9 @@
 
 			dispatch_async(dispatch_get_main_queue(), // Queue image show on main thread
 			^{
-				if (thumbView.targetTag == targetTag) [thumbView showImage:image];
+                if (thumbView.targetTag == targetTag) {
+                    [thumbView showImage:image];
+                }
 			});
 		}
 

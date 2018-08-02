@@ -51,7 +51,9 @@
 
 - (void)main
 {
-	CGImageRef imageRef = NULL; NSURL *thumbURL = [self thumbFileURL];
+	CGImageRef imageRef = NULL;
+    
+    NSURL *thumbURL = [self thumbFileURL];
 
 	CGImageSourceRef loadRef = CGImageSourceCreateWithURL((__bridge CFURLRef)thumbURL, NULL);
 
@@ -99,7 +101,9 @@
 
 			dispatch_async(dispatch_get_main_queue(), // Queue image show on main thread
 			^{
-				if (thumbView.targetTag == targetTag) [thumbView showImage:decoded];
+                if (thumbView.targetTag == targetTag) {
+                    [thumbView showImage:decoded];
+                }
 			});
 		}
 	}
