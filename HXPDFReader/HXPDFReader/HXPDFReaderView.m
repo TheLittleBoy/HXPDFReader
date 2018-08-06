@@ -136,4 +136,11 @@
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectPDFDocument:withPage:)]) {
+        [self.delegate didSelectPDFDocument:self.document withPage:indexPath.row];
+    }
+}
+
 @end

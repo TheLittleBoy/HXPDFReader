@@ -38,6 +38,7 @@
 		044CAB38210601F10099EAF5 /* ReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CAB2E210601F10099EAF5 /* ReaderViewController.m */; };
 		044CAB39210601F10099EAF5 /* ThumbsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CAB2F210601F10099EAF5 /* ThumbsViewController.m */; };
 		044CAB3B210602010099EAF5 /* 1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 044CAB3A210602010099EAF5 /* 1.pdf */; };
+		048FF2C32118745B003DA196 /* HXPDFDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048FF2C22118745B003DA196 /* HXPDFDetailViewController.m */; };
 		04BCBF9B2111DC3000D356FB /* HXPDFReaderThumbCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BCBF8D2111DC2F00D356FB /* HXPDFReaderThumbCache.m */; };
 		04BCBF9C2111DC3000D356FB /* HXPDFReaderThumbFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BCBF8E2111DC2F00D356FB /* HXPDFReaderThumbFetch.m */; };
 		04BCBF9D2111DC3000D356FB /* HXPDFReaderThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BCBF8F2111DC2F00D356FB /* HXPDFReaderThumbView.m */; };
@@ -109,6 +110,8 @@
 		044CAB2E210601F10099EAF5 /* ReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderViewController.m; sourceTree = "<group>"; };
 		044CAB2F210601F10099EAF5 /* ThumbsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbsViewController.m; sourceTree = "<group>"; };
 		044CAB3A210602010099EAF5 /* 1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 1.pdf; sourceTree = "<group>"; };
+		048FF2C12118745B003DA196 /* HXPDFDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXPDFDetailViewController.h; sourceTree = "<group>"; };
+		048FF2C22118745B003DA196 /* HXPDFDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXPDFDetailViewController.m; sourceTree = "<group>"; };
 		04BCBF8D2111DC2F00D356FB /* HXPDFReaderThumbCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPDFReaderThumbCache.m; sourceTree = "<group>"; };
 		04BCBF8E2111DC2F00D356FB /* HXPDFReaderThumbFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPDFReaderThumbFetch.m; sourceTree = "<group>"; };
 		04BCBF8F2111DC2F00D356FB /* HXPDFReaderThumbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXPDFReaderThumbView.m; sourceTree = "<group>"; };
@@ -147,10 +150,8 @@
 			children = (
 				0415F1A3211161BE0001E6A1 /* HXPDFDocument.h */,
 				0415F1A4211161BE0001E6A1 /* HXPDFDocument.m */,
-				042455212113F29A00197A32 /* HXPDFReaderView.h */,
-				042455222113F29A00197A32 /* HXPDFReaderView.m */,
-				0424552521143A9B00197A32 /* HXPDFReaderViewCell.h */,
-				0424552621143A9B00197A32 /* HXPDFReaderViewCell.m */,
+				048FF2C0211873CC003DA196 /* 横屏大图 */,
+				048FF2BF211872A6003DA196 /* 竖屏缩略图 */,
 				04BCBF952111DC3000D356FB /* HXPDFReaderThumbCache.h */,
 				04BCBF8D2111DC2F00D356FB /* HXPDFReaderThumbCache.m */,
 				04BCBF902111DC2F00D356FB /* HXPDFReaderThumbFetch.h */,
@@ -305,6 +306,26 @@
 			name = "横向滚动大图";
 			sourceTree = "<group>";
 		};
+		048FF2BF211872A6003DA196 /* 竖屏缩略图 */ = {
+			isa = PBXGroup;
+			children = (
+				042455212113F29A00197A32 /* HXPDFReaderView.h */,
+				042455222113F29A00197A32 /* HXPDFReaderView.m */,
+				0424552521143A9B00197A32 /* HXPDFReaderViewCell.h */,
+				0424552621143A9B00197A32 /* HXPDFReaderViewCell.m */,
+			);
+			name = "竖屏缩略图";
+			sourceTree = "<group>";
+		};
+		048FF2C0211873CC003DA196 /* 横屏大图 */ = {
+			isa = PBXGroup;
+			children = (
+				048FF2C12118745B003DA196 /* HXPDFDetailViewController.h */,
+				048FF2C22118745B003DA196 /* HXPDFDetailViewController.m */,
+			);
+			name = "横屏大图";
+			sourceTree = "<group>";
+		};
 		067CC0866249E4037561A00D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +442,7 @@
 				042A9ACE2103167400555BCE /* ReaderThumbCache.m in Sources */,
 				04BCBF9D2111DC3000D356FB /* HXPDFReaderThumbView.m in Sources */,
 				042A9ACF2103167400555BCE /* ReaderThumbsView.m in Sources */,
+				048FF2C32118745B003DA196 /* HXPDFDetailViewController.m in Sources */,
 				044CAB37210601F10099EAF5 /* ReaderContentPage.m in Sources */,
 				04BCBF9B2111DC3000D356FB /* HXPDFReaderThumbCache.m in Sources */,
 				042A9AD42103167400555BCE /* ReaderThumbRequest.m in Sources */,

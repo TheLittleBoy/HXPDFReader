@@ -8,8 +8,9 @@
 
 #import "HXTestViewController.h"
 #import "HXPDFReaderView.h"
+#import "HXPDFDetailViewController.h"
 
-@interface HXTestViewController ()
+@interface HXTestViewController ()<HXPDFReaderViewDelegate>
 {
     HXPDFDocument *document;
 }
@@ -33,6 +34,7 @@
     {
         HXPDFReaderView *readerView = [[HXPDFReaderView alloc] initWithFrame:CGRectMake(50, 0, 300, self.view.bounds.size.height)];
         readerView.document = document;
+        readerView.delegate = self;
         [self.view addSubview:readerView];
     }
     else // Log an error so that we know that something went wrong
@@ -49,6 +51,23 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - HXPDFReaderViewDelegate
+
+- (void)didSelectPDFDocument:(HXPDFDocument *)document withPage:(int)page {
+    
+    NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
+    
+    NSString *filePath = filePath = [[NSBundle mainBundle] pathForResource:@"2" ofType:@"pdf"];
+    
+    ReaderDocument *newDocument = [ReaderDocument withDocumentFilePath:filePath password:phrase];
+    
+    HXPDFDetailViewController *detailVC = [[HXPDFDetailViewController alloc] initWithReaderDocument:newDocument];
+    
+    [self presentViewController:detailVC animated:NO completion:^{
+        
+    }];
 }
 
 /*
