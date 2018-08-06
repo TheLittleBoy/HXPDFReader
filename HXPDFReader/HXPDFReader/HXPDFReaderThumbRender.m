@@ -9,7 +9,6 @@
 #import "HXPDFReaderThumbRender.h"
 #import "HXPDFReaderThumbCache.h"
 #import "HXPDFReaderThumbView.h"
-#import "CGPDFDocument.h"
 #import <ImageIO/ImageIO.h>
 
 @implementation HXPDFReaderThumbRender
@@ -21,7 +20,7 @@
 
 - (instancetype)initWithRequest:(HXPDFReaderThumbRequest *)options
 {
-	if ((self = [super initWithGUID:options.guid]))
+	if ((self = [super initWithGUID:options.document.guid]))
 	{
 		request = options;
 	}
@@ -33,7 +32,7 @@
 {
 	[super cancel]; // Cancel the operation
 
-	request.thumbView.operation = nil; // Break retain loop
+//    request.thumbView.operation = nil; // Break retain loop
 
 	request.thumbView = nil; // Release target thumb view on cancel
 
@@ -44,7 +43,7 @@
 {
 	NSFileManager *fileManager = [NSFileManager new]; // File manager instance
 
-	NSString *cachePath = [HXPDFReaderThumbCache thumbCachePathForGUID:request.guid]; // Thumb cache path
+	NSString *cachePath = [HXPDFReaderThumbCache thumbCachePathForGUID:request.document.guid]; // Thumb cache path
 
 	[fileManager createDirectoryAtPath:cachePath withIntermediateDirectories:NO attributes:nil error:NULL];
 
@@ -57,13 +56,9 @@
 {
 	NSInteger page = request.thumbPage;
     
-    NSString *password = request.password;
-
 	CGImageRef imageRef = NULL;
     
-    CFURLRef fileURL = (__bridge CFURLRef)request.fileURL;
-
-	CGPDFDocumentRef thePDFDocRef = CGPDFDocumentCreateUsingUrl(fileURL, password);
+	CGPDFDocumentRef thePDFDocRef = [request.document thePDFDocRef];
 
 	if (thePDFDocRef != NULL) // Check for non-NULL CGPDFDocumentRef
 	{
@@ -145,7 +140,7 @@
 			CGColorSpaceRelease(rgb); // Release device RGB color space reference
 		}
 
-		CGPDFDocumentRelease(thePDFDocRef); // Release CGPDFDocumentRef reference
+//        CGPDFDocumentRelease(thePDFDocRef); // Release CGPDFDocumentRef reference
 	}
 
 	if (imageRef != NULL) // Create UIImage from CGImage and show it, then save thumb as PNG
@@ -156,14 +151,14 @@
 
 		if (self.isCancelled == NO) // Show the image in the target thumb view on the main thread
 		{
-			HXPDFReaderThumbView *thumbView = request.thumbView; // Target thumb view for image show
+			UIImageView *imageView = request.thumbView; // Target thumb view for image show
 
 			NSUInteger targetTag = request.targetTag; // Target reference tag for image show
 
 			dispatch_async(dispatch_get_main_queue(), // Queue image show on main thread
 			^{
-                if (thumbView.targetTag == targetTag) {
-                    [thumbView showImage:image];
+                if (imageView.tag == targetTag) {
+                    [imageView setImage:image];
                 }
 			});
 		}
@@ -188,7 +183,7 @@
 		[[HXPDFReaderThumbCache sharedInstance] removeNullForKey:request.cacheKey];
 	}
 
-	request.thumbView.operation = nil; // Break retain loop
+//    request.thumbView.operation = nil; // Break retain loop
 }
 
 @end

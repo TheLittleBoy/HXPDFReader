@@ -160,7 +160,7 @@
 
 			[thumbFetch setQueuePriority:(priority ? NSOperationQueuePriorityNormal : NSOperationQueuePriorityLow)]; // Queue priority
 
-			request.thumbView.operation = thumbFetch; //[thumbFetch setThreadPriority:(priority ? 0.55 : 0.35)]; // Thread priority
+//            request.thumbView.operation = thumbFetch; //[thumbFetch setThreadPriority:(priority ? 0.55 : 0.35)]; // Thread priority
 
 			[[HXPDFReaderThumbQueue sharedInstance] addLoadOperation:thumbFetch]; // Queue the operation
 		}

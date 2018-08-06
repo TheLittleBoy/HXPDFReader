@@ -10,7 +10,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface HXPDFDocument ()
-
+{
+    CGPDFDocumentRef currentDocRef;
+}
 @property (nonatomic, strong, readwrite) NSString *password;
 @property (nonatomic, strong, readwrite) NSString *filePath;
 
@@ -33,6 +35,8 @@
     NSString *_filePath;
     
     NSURL *_fileURL;
+    
+    NSMutableArray *_aspectRatio;
 }
 
 #pragma mark - Properties
@@ -43,6 +47,7 @@
 @synthesize pageNumber = _pageNumber;
 @synthesize password = _password;
 @synthesize filePath = _filePath;
+@synthesize aspectRatio = _aspectRatio;
 @dynamic fileName, fileURL;
 
 #pragma mark - HXPDFDocument class methods
@@ -145,9 +150,7 @@
             
             _pageNumber = [NSNumber numberWithInteger:1]; // Start on page one
             
-            CFURLRef docURLRef = (__bridge CFURLRef)[self fileURL]; // CFURLRef from NSURL
-            
-            CGPDFDocumentRef thePDFDocRef = [self CGPDFDocumentCreateUsingUrl:docURLRef password:_password];
+            CGPDFDocumentRef thePDFDocRef = [self thePDFDocRef];
             
             if (thePDFDocRef != NULL) // Get the total number of pages in the document
             {
@@ -155,7 +158,46 @@
                 
                 _pageCount = [NSNumber numberWithInteger:pageCount];
                 
-                CGPDFDocumentRelease(thePDFDocRef); // Cleanup
+                _aspectRatio = [NSMutableArray arrayWithCapacity:pageCount];
+                
+                for (int page = 1; page<=pageCount; page++) {
+                    
+                    CGPDFPageRef thePDFPageRef = CGPDFDocumentGetPage(thePDFDocRef, page);
+
+                    CGRect cropBoxRect = CGPDFPageGetBoxRect(thePDFPageRef, kCGPDFCropBox);
+                    CGRect mediaBoxRect = CGPDFPageGetBoxRect(thePDFPageRef, kCGPDFMediaBox);
+                    CGRect effectiveRect = CGRectIntersection(cropBoxRect, mediaBoxRect);
+                    
+                    NSInteger pageRotate = CGPDFPageGetRotationAngle(thePDFPageRef); // Angle
+                    
+                    CGFloat page_w = 0.0f;
+                    CGFloat page_h = 0.0f; // Rotated page size
+                    
+                    switch (pageRotate) // Page rotation (in degrees)
+                    {
+                        default: // Default case
+                        case 0: case 180: // 0 and 180 degrees
+                        {
+                            page_w = effectiveRect.size.width;
+                            page_h = effectiveRect.size.height;
+                            break;
+                        }
+                            
+                        case 90: case 270: // 90 and 270 degrees
+                        {
+                            page_h = effectiveRect.size.width;
+                            page_w = effectiveRect.size.height;
+                            break;
+                        }
+                    }
+                    
+                    CGFloat scale = page_h/page_w; // Width scale
+                    
+                    [_aspectRatio addObject:[NSNumber numberWithFloat:scale]];
+                    
+                }
+                
+                //CGPDFDocumentRelease(thePDFDocRef); // Cleanup
             }
             else // Cupertino, we have a problem with the document
             {
@@ -215,6 +257,8 @@
     [encoder encodeObject:_pageNumber forKey:@"PageNumber"];
     
     [encoder encodeObject:_fileSize forKey:@"FileSize"];
+    
+    [encoder encodeObject:_aspectRatio forKey:@"AspectRatio"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder
@@ -229,11 +273,32 @@
         
         _fileSize = [decoder decodeObjectForKey:@"FileSize"];
         
+        _aspectRatio = [decoder decodeObjectForKey:@"AspectRatio"];
+        
         if (_guid == nil) {
             _guid = [HXPDFDocument GUID];
         }
     }
     return self;
+}
+
+- (CGPDFDocumentRef)thePDFDocRef {
+    
+    if (currentDocRef == NULL) {
+        
+        CFURLRef docURLRef = (__bridge CFURLRef)[self fileURL]; // CFURLRef from NSURL
+        
+        currentDocRef = [self CGPDFDocumentCreateUsingUrl:docURLRef password:_password];
+    }
+    
+    return currentDocRef;
+}
+
+- (void)dealloc
+{
+    if (currentDocRef != NULL) {
+        CGPDFDocumentRelease(currentDocRef); // Cleanup
+    }
 }
 
 
