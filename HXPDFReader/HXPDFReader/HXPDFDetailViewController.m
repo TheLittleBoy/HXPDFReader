@@ -7,16 +7,13 @@
 //
 
 #import "HXPDFDetailViewController.h"
-
-#import "ReaderViewController.h"
 #import "HXPDFTopbarView.h"
 #import "HXPDFBottombarView.h"
-#import "ReaderContentView.h"
-#import "ReaderThumbCache.h"
-#import "ReaderThumbQueue.h"
+#import "HXPDFDetailContentView.h"
+#import "HXPDFReaderThumbCache.h"
+#import "HXPDFReaderThumbQueue.h"
 
-@interface HXPDFDetailViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate,
-HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
+@interface HXPDFDetailViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate,HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, HXPDFDetailContentViewDelegate>
 @end
 
 @implementation HXPDFDetailViewController
@@ -55,7 +52,7 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
 #define TAP_AREA_SIZE 48.0f
 
 
-#pragma mark - ReaderViewController methods
+#pragma mark - HXPDFDetailViewController methods
 
 - (void)updateContentSize:(UIScrollView *)scrollView
 {
@@ -71,7 +68,7 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
     [self updateContentSize:scrollView]; // Update content size first
     
     [contentViews enumerateKeysAndObjectsUsingBlock: // Enumerate content views
-     ^(NSNumber *key, ReaderContentView *contentView, BOOL *stop)
+     ^(NSNumber *key, HXPDFDetailContentView *contentView, BOOL *stop)
      {
          NSInteger page = [key integerValue]; // Page number value
          
@@ -102,11 +99,7 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
     viewRect.origin.x = (viewRect.size.width * (page - 1));
     viewRect = CGRectInset(viewRect, scrollViewOutset, 0.0f);
     
-    NSURL *fileURL = document.fileURL;
-    NSString *phrase = document.password;
-    NSString *guid = document.guid; // Document properties
-    
-    ReaderContentView *contentView = [[ReaderContentView alloc] initWithFrame:viewRect fileURL:fileURL page:page password:phrase]; // ReaderContentView
+    HXPDFDetailContentView *contentView = [[HXPDFDetailContentView alloc] initWithFrame:viewRect document:document page:page];
     
     contentView.message = self;
     
@@ -114,7 +107,7 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
     
     [scrollView addSubview:contentView];
     
-    [contentView showPageThumb:fileURL page:page password:phrase guid:guid]; // Request page preview thumb
+    [contentView showPageThumbWithDocument:document page:page]; // Request page preview thumb
 }
 
 - (void)layoutContentViews:(UIScrollView *)scrollView
@@ -141,7 +134,7 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
         
         if ([pageSet containsIndex:page] == NO) // Remove content view
         {
-            ReaderContentView *contentView = [contentViews objectForKey:key];
+            HXPDFDetailContentView *contentView = [contentViews objectForKey:key];
             
             [contentView removeFromSuperview];
             
@@ -197,7 +190,7 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
         document.pageNumber = [NSNumber numberWithInteger:page];
         
         [contentViews enumerateKeysAndObjectsUsingBlock: // Enumerate content views
-         ^(NSNumber *key, ReaderContentView *contentView, BOOL *stop)
+         ^(NSNumber *key, HXPDFDetailContentView *contentView, BOOL *stop)
          {
              if ([key integerValue] != page) [contentView zoomResetAnimated:NO];
          }
@@ -230,7 +223,7 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
             [theScrollView setContentOffset:contentOffset];
         
         [contentViews enumerateKeysAndObjectsUsingBlock: // Enumerate content views
-         ^(NSNumber *key, ReaderContentView *contentView, BOOL *stop)
+         ^(NSNumber *key, HXPDFDetailContentView *contentView, BOOL *stop)
          {
              if ([key integerValue] != page) [contentView zoomResetAnimated:NO];
          }
@@ -251,9 +244,9 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
 {
     [document archiveDocumentProperties]; // Save any ReaderDocument changes
     
-    [[ReaderThumbQueue sharedInstance] cancelOperationsWithGUID:document.guid];
+    [[HXPDFReaderThumbQueue sharedInstance] cancelOperationsWithGUID:document.guid];
     
-    [[ReaderThumbCache sharedInstance] removeAllObjects]; // Empty the thumb cache
+    [[HXPDFReaderThumbCache sharedInstance] removeAllObjects]; // Empty the thumb cache
     
     [self dismissViewControllerAnimated:YES completion:^{
         
@@ -280,7 +273,7 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
             
             document = object; // Retain the supplied ReaderDocument object for our use
             
-            [ReaderThumbCache touchThumbCacheWithGUID:object.guid]; // Touch the document thumb cache directory
+            [HXPDFReaderThumbCache touchThumbCacheWithGUID:object.guid]; // Touch the document thumb cache directory
         }
         else // Invalid ReaderDocument object
         {
@@ -408,6 +401,11 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
     return UIStatusBarStyleLightContent;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (BOOL)shouldAutorotate
 {
     return YES;
@@ -502,7 +500,7 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
         {
             NSNumber *key = [NSNumber numberWithInteger:currentPage]; // Page number key
             
-            ReaderContentView *targetView = [contentViews objectForKey:key]; // View
+            HXPDFDetailContentView *targetView = [contentViews objectForKey:key]; // View
             
             id target = [targetView processSingleTap:recognizer]; // Target object
             
@@ -590,7 +588,7 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
         {
             NSNumber *key = [NSNumber numberWithInteger:currentPage]; // Page number key
             
-            ReaderContentView *targetView = [contentViews objectForKey:key]; // View
+            HXPDFDetailContentView *targetView = [contentViews objectForKey:key]; // View
             
             switch (recognizer.numberOfTouchesRequired) // Touches count
             {
@@ -627,9 +625,9 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
     }
 }
 
-#pragma mark - ReaderContentViewDelegate methods
+#pragma mark - HXPDFDetailContentViewDelegate methods
 
-- (void)contentView:(ReaderContentView *)contentView touchesBegan:(NSSet *)touches
+- (void)contentView:(HXPDFDetailContentView *)contentView touchesBegan:(NSSet *)touches
 {
     if ((mainToolbar.alpha > 0.0f) || (mainPagebar.alpha > 0.0f))
     {
@@ -656,7 +654,7 @@ HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
 
 - (void)tappedInToolbar:(HXPDFTopbarView *)toolbar doneButton:(UIButton *)button
 {
-    [self closeDocument]; // Close ReaderViewController
+    [self closeDocument];
 }
 
 #pragma mark - ReaderMainPagebarDelegate methods
