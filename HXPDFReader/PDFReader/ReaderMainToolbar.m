@@ -101,9 +101,13 @@
 		//doneButton.backgroundColor = [UIColor grayColor];
 		doneButton.exclusiveTouch = YES;
 
-		[self addSubview:doneButton]; leftButtonX += (doneButtonWidth + buttonSpacing);
+		[self addSubview:doneButton];
+        
+        leftButtonX += (doneButtonWidth + buttonSpacing);
 
-		titleX += (doneButtonWidth + buttonSpacing); titleWidth -= (doneButtonWidth + buttonSpacing);
+		titleX += (doneButtonWidth + buttonSpacing);
+        
+        titleWidth -= (doneButtonWidth + buttonSpacing);
 
 #endif // end of READER_STANDALONE Option
 

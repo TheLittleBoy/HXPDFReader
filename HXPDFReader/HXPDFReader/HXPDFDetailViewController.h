@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ReaderDocument.h"
+#import "HXPDFDocument.h"
 
 @interface HXPDFDetailViewController : UIViewController
 
-- (instancetype)initWithReaderDocument:(ReaderDocument *)object;
+- (instancetype)initWithReaderDocument:(HXPDFDocument *)object;
 
 @end

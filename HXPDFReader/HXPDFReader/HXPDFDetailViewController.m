@@ -9,23 +9,23 @@
 #import "HXPDFDetailViewController.h"
 
 #import "ReaderViewController.h"
-#import "ReaderMainToolbar.h"
+#import "HXPDFTopbarView.h"
 #import "ReaderMainPagebar.h"
 #import "ReaderContentView.h"
 #import "ReaderThumbCache.h"
 #import "ReaderThumbQueue.h"
 
 @interface HXPDFDetailViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate,
-ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
+HXPDFTopbarViewDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
 @end
 
 @implementation HXPDFDetailViewController
 {
-    ReaderDocument *document;
+    HXPDFDocument *document;
     
     UIScrollView *theScrollView;
     
-    ReaderMainToolbar *mainToolbar;
+    HXPDFTopbarView *mainToolbar;
     
     ReaderMainPagebar *mainPagebar;
     
@@ -91,8 +91,6 @@ ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
         scrollView.contentOffset = contentOffset; // Update content offset
     }
     
-    [mainToolbar setBookmarkState:[document.bookmarks containsIndex:page]];
-    
     [mainPagebar updatePagebar]; // Update page bar
 }
 
@@ -129,7 +127,9 @@ ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
     
     NSInteger pageA = (contentOffsetX / viewWidth); pageB += 2; // Add extra pages
     
-    if (pageA < minimumPage) pageA = minimumPage; if (pageB > maximumPage) pageB = maximumPage;
+    if (pageA < minimumPage) pageA = minimumPage;
+    
+    if (pageB > maximumPage) pageB = maximumPage;
     
     NSRange pageRange = NSMakeRange(pageA, (pageB - pageA + 1)); // Make page range (A to B)
     
@@ -143,7 +143,9 @@ ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
         {
             ReaderContentView *contentView = [contentViews objectForKey:key];
             
-            [contentView removeFromSuperview]; [contentViews removeObjectForKey:key];
+            [contentView removeFromSuperview];
+            
+            [contentViews removeObjectForKey:key];
         }
         else // Visible content view - so remove it from page set
         {
@@ -201,8 +203,6 @@ ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
          }
          ];
         
-        [mainToolbar setBookmarkState:[document.bookmarks containsIndex:page]];
-        
         [mainPagebar updatePagebar]; // Update page bar
     }
 }
@@ -236,8 +236,6 @@ ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
          }
          ];
         
-        [mainToolbar setBookmarkState:[document.bookmarks containsIndex:page]];
-        
         [mainPagebar updatePagebar]; // Update page bar
     }
 }
@@ -247,8 +245,6 @@ ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
     [self updateContentSize:theScrollView]; // Update content size first
     
     [self showDocumentPage:[document.pageNumber integerValue]]; // Show page
-    
-    document.lastOpen = [NSDate date]; // Update document last opened date
 }
 
 - (void)closeDocument
@@ -266,11 +262,11 @@ ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
 
 #pragma mark - UIViewController methods
 
-- (instancetype)initWithReaderDocument:(ReaderDocument *)object
+- (instancetype)initWithReaderDocument:(HXPDFDocument *)object
 {
     if ((self = [super initWithNibName:nil bundle:nil])) // Initialize superclass
     {
-        if ((object != nil) && ([object isKindOfClass:[ReaderDocument class]])) // Valid object
+        if ((object != nil) && ([object isKindOfClass:[HXPDFDocument class]])) // Valid object
         {
             userInterfaceIdiom = [UIDevice currentDevice].userInterfaceIdiom; // User interface idiom
             
@@ -281,8 +277,6 @@ ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
             [notificationCenter addObserver:self selector:@selector(applicationWillResign:) name:UIApplicationWillResignActiveNotification object:nil];
             
             scrollViewOutset = ((userInterfaceIdiom == UIUserInterfaceIdiomPad) ? SCROLLVIEW_OUTSET_LARGE : SCROLLVIEW_OUTSET_SMALL);
-            
-            [object updateDocumentProperties];
             
             document = object; // Retain the supplied ReaderDocument object for our use
             
@@ -335,7 +329,7 @@ ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
     [self.view addSubview:theScrollView];
     
     CGRect toolbarRect = viewRect; toolbarRect.size.height = TOOLBAR_HEIGHT;
-    mainToolbar = [[ReaderMainToolbar alloc] initWithFrame:toolbarRect document:document]; // ReaderMainToolbar
+    mainToolbar = [[HXPDFTopbarView alloc] initWithFrame:toolbarRect]; // ReaderMainToolbar
     mainToolbar.delegate = self; // ReaderMainToolbarDelegate
     [self.view addSubview:mainToolbar];
     
@@ -655,23 +649,11 @@ ReaderMainToolbarDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
     }
 }
 
-#pragma mark - ReaderMainToolbarDelegate methods
+#pragma mark - HXPDFTopbarViewDelegate methods
 
-- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar doneButton:(UIButton *)button
+- (void)tappedInToolbar:(HXPDFTopbarView *)toolbar doneButton:(UIButton *)button
 {
-#if (READER_STANDALONE == FALSE) // Option
-    
     [self closeDocument]; // Close ReaderViewController
-    
-#endif // end of READER_STANDALONE Option
-}
-
-- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar thumbsButton:(UIButton *)button
-{
-}
-
-- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar markButton:(UIButton *)button
-{
 }
 
 #pragma mark - ReaderMainPagebarDelegate methods

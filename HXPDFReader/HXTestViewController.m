@@ -57,13 +57,7 @@
 
 - (void)didSelectPDFDocument:(HXPDFDocument *)document withPage:(int)page {
     
-    NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
-    
-    NSString *filePath = filePath = [[NSBundle mainBundle] pathForResource:@"2" ofType:@"pdf"];
-    
-    ReaderDocument *newDocument = [ReaderDocument withDocumentFilePath:filePath password:phrase];
-    
-    HXPDFDetailViewController *detailVC = [[HXPDFDetailViewController alloc] initWithReaderDocument:newDocument];
+    HXPDFDetailViewController *detailVC = [[HXPDFDetailViewController alloc] initWithReaderDocument:document];
     
     [self presentViewController:detailVC animated:NO completion:^{
         
