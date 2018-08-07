@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HXPDFReaderThumbView.h"
 
 @interface HXPDFReaderViewCell : UICollectionViewCell
 
-@property(nonatomic, strong) UIImageView *imageView;
+@property(nonatomic, strong) HXPDFReaderThumbView *thumbView;
 
 @end

@@ -17,7 +17,7 @@
 
 	NSString *_thumbName;
 
-	UIImageView *_thumbView;
+	HXPDFReaderThumbView *_thumbView;
 
 	NSUInteger _targetTag;
 
@@ -41,14 +41,14 @@
 
 #pragma mark - HXPDFReaderThumbRequest class methods
 
-+ (instancetype)newForView:(UIImageView *)view document:(HXPDFDocument*)document page:(NSInteger)page size:(CGSize)size
++ (instancetype)newForView:(HXPDFReaderThumbView *)view document:(HXPDFDocument*)document page:(NSInteger)page size:(CGSize)size
 {
 	return [[HXPDFReaderThumbRequest alloc] initForView:view document:document page:page size:size];
 }
 
 #pragma mark - HXPDFReaderThumbRequest instance methods
 
-- (instancetype)initForView:(UIImageView *)view document:(HXPDFDocument*)document page:(NSInteger)page size:(CGSize)size
+- (instancetype)initForView:(HXPDFReaderThumbView *)view document:(HXPDFDocument*)document page:(NSInteger)page size:(CGSize)size
 {
 	if ((self = [super init])) // Initialize object
 	{
@@ -70,7 +70,7 @@
 
 		_targetTag = [_cacheKey hash];
         
-        _thumbView.tag = _targetTag;
+        _thumbView.targetTag = _targetTag;
 
 		_scale = [[UIScreen mainScreen] scale]; // Thumb screen scale
 	}

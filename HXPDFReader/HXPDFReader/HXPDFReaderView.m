@@ -125,12 +125,12 @@
     
     NSInteger page = (indexPath.row + 1);
     
-    HXPDFReaderThumbRequest *thumbRequest = [HXPDFReaderThumbRequest newForView:cell.imageView document:self.document page:page size:size];
+    HXPDFReaderThumbRequest *thumbRequest = [HXPDFReaderThumbRequest newForView:cell.thumbView document:self.document page:page size:size];
     
     UIImage *image = [[HXPDFReaderThumbCache sharedInstance] thumbRequest:thumbRequest priority:YES]; // Request the thumbnail
     
     if ([image isKindOfClass:[UIImage class]]) {
-        cell.imageView.image = image;
+        [cell.thumbView showImage:image];
     }
     
     return cell;
@@ -139,7 +139,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectPDFDocument:withPage:)]) {
-        [self.delegate didSelectPDFDocument:self.document withPage:indexPath.row];
+        [self.delegate didSelectPDFDocument:self.document withPage:(int)indexPath.row+1];
     }
 }
 

@@ -10,13 +10,13 @@
 
 #import "ReaderViewController.h"
 #import "HXPDFTopbarView.h"
-#import "ReaderMainPagebar.h"
+#import "HXPDFBottombarView.h"
 #import "ReaderContentView.h"
 #import "ReaderThumbCache.h"
 #import "ReaderThumbQueue.h"
 
 @interface HXPDFDetailViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate,
-HXPDFTopbarViewDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
+HXPDFTopbarViewDelegate, HXPDFBottombarViewDelegate, ReaderContentViewDelegate>
 @end
 
 @implementation HXPDFDetailViewController
@@ -27,7 +27,7 @@ HXPDFTopbarViewDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
     
     HXPDFTopbarView *mainToolbar;
     
-    ReaderMainPagebar *mainPagebar;
+    HXPDFBottombarView *mainPagebar;
     
     NSMutableDictionary *contentViews;
     
@@ -293,11 +293,14 @@ HXPDFTopbarViewDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
 
 - (void)dealloc
 {
-    mainToolbar = nil; mainPagebar = nil;
+    mainToolbar = nil;
+    mainPagebar = nil;
+    theScrollView = nil;
+    contentViews = nil;
+    lastHideTime = nil;
     
-    theScrollView = nil; contentViews = nil; lastHideTime = nil;
-    
-    lastAppearSize = CGSizeZero; currentPage = 0;
+    lastAppearSize = CGSizeZero;
+    currentPage = 0;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -336,7 +339,7 @@ HXPDFTopbarViewDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
     CGRect pagebarRect = self.view.bounds;
     pagebarRect.size.height = PAGEBAR_HEIGHT;
     pagebarRect.origin.y = (self.view.bounds.size.height - pagebarRect.size.height);
-    mainPagebar = [[ReaderMainPagebar alloc] initWithFrame:pagebarRect document:document]; // ReaderMainPagebar
+    mainPagebar = [[HXPDFBottombarView alloc] initWithFrame:pagebarRect document:document]; // ReaderMainPagebar
     mainPagebar.delegate = self; // ReaderMainPagebarDelegate
     [self.view addSubview:mainPagebar];
     
@@ -658,7 +661,7 @@ HXPDFTopbarViewDelegate, ReaderMainPagebarDelegate, ReaderContentViewDelegate>
 
 #pragma mark - ReaderMainPagebarDelegate methods
 
-- (void)pagebar:(ReaderMainPagebar *)pagebar gotoPage:(NSInteger)page
+- (void)pagebar:(HXPDFBottombarView *)pagebar gotoPage:(NSInteger)page
 {
     [self showDocumentPage:page];
 }

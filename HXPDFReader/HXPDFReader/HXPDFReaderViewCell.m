@@ -35,11 +35,9 @@
             make.edges.mas_equalTo(UIEdgeInsetsZero);
         }];
         
-        self.imageView = [[UIImageView alloc] init];
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.contentView addSubview:self.imageView];
-        
-        [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.thumbView = [[HXPDFReaderThumbView alloc] init];
+        [self.contentView addSubview:self.thumbView];
+        [self.thumbView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(UIEdgeInsetsZero);
         }];
         
@@ -50,7 +48,7 @@
         tintView.contentMode = UIViewContentModeRedraw;
         tintView.autoresizingMask = UIViewAutoresizingNone;
         tintView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.25f];
-        [self.imageView addSubview:tintView];
+        [self.thumbView addSubview:tintView];
         
         [tintView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(UIEdgeInsetsZero);
@@ -63,7 +61,7 @@
 {
     [super prepareForReuse];
     
-    [self.imageView setImage:nil];
+    [self.thumbView reuse];
 }
 
 

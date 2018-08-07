@@ -16,12 +16,12 @@
 @property (nonatomic, strong, readonly) HXPDFDocument *document;
 @property (nonatomic, strong, readonly) NSString *cacheKey;
 @property (nonatomic, strong, readonly) NSString *thumbName;
-@property (nonatomic, strong, readwrite) UIImageView *thumbView;
+@property (nonatomic, strong, readwrite) HXPDFReaderThumbView *thumbView;
 @property (nonatomic, assign, readonly) NSUInteger targetTag;
 @property (nonatomic, assign, readonly) NSInteger thumbPage;
 @property (nonatomic, assign, readonly) CGSize thumbSize;
 @property (nonatomic, assign, readonly) CGFloat scale;
 
-+ (instancetype)newForView:(UIImageView *)view document:(HXPDFDocument*)document page:(NSInteger)page size:(CGSize)size;
++ (instancetype)newForView:(HXPDFReaderThumbView *)view document:(HXPDFDocument*)document page:(NSInteger)page size:(CGSize)size;
 
 @end

@@ -33,16 +33,18 @@
 		self.backgroundColor = [UIColor clearColor];
 
 		imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-
 		imageView.autoresizesSubviews = NO;
 		imageView.userInteractionEnabled = NO;
-		imageView.autoresizingMask = UIViewAutoresizingNone;
 		imageView.contentMode = UIViewContentModeScaleAspectFit;
-
 		[self addSubview:imageView];
 	}
 
 	return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    imageView.frame = self.bounds;
 }
 
 - (void)showImage:(UIImage *)image

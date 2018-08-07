@@ -57,6 +57,8 @@
 
 - (void)didSelectPDFDocument:(HXPDFDocument *)document withPage:(int)page {
     
+    document.pageNumber = [NSNumber numberWithInt:page];
+    
     HXPDFDetailViewController *detailVC = [[HXPDFDetailViewController alloc] initWithReaderDocument:document];
     
     [self presentViewController:detailVC animated:NO completion:^{

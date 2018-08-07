@@ -33,7 +33,7 @@
 {
 	[super cancel]; // Cancel the operation
 
-//    request.thumbView.operation = nil; // Break retain loop
+    request.thumbView.operation = nil; // Break retain loop
 
 	request.thumbView = nil; // Release target thumb view on cancel
 
@@ -71,7 +71,7 @@
 
 		if (self.isCancelled == NO) // We're not cancelled - so update things and add the render operation to the work queue
 		{
-//            request.thumbView.operation = thumbRender; // Update the thumb view operation property to the new operation
+            request.thumbView.operation = thumbRender; // Update the thumb view operation property to the new operation
 
 			[[HXPDFReaderThumbQueue sharedInstance] addWorkOperation:thumbRender]; return; // Queue the operation
 		}
@@ -95,20 +95,20 @@
 
 		if (self.isCancelled == NO) // Show the image in the target thumb view on the main thread
 		{
-			UIImageView *imageView = request.thumbView; // Target thumb view for image show
+			HXPDFReaderThumbView *thumbView = request.thumbView; // Target thumb view for image show
 
 			NSUInteger targetTag = request.targetTag; // Target reference tag for image show
 
 			dispatch_async(dispatch_get_main_queue(), // Queue image show on main thread
 			^{
-                if (imageView.tag == targetTag) {
-                    [imageView setImage:image];
+                if (thumbView.targetTag == targetTag) {
+                    [thumbView showImage:decoded];
                 }
 			});
 		}
 	}
 
-//    request.thumbView.operation = nil; // Break retain loop
+    request.thumbView.operation = nil; // Break retain loop
 }
 
 @end

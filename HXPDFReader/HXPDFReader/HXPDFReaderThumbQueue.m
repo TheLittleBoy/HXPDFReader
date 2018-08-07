@@ -70,7 +70,9 @@
 
 - (void)cancelOperationsWithGUID:(NSString *)guid
 {
-	[loadQueue setSuspended:YES]; [workQueue setSuspended:YES];
+	[loadQueue setSuspended:YES];
+    
+    [workQueue setSuspended:YES];
 
 	for (HXPDFReaderThumbOperation *operation in loadQueue.operations)
 	{
