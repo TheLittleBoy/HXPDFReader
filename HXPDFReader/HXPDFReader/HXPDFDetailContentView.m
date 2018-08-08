@@ -64,24 +64,38 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 {
     CGFloat zoomScale = zoomScaleThatFits(self.bounds.size, theContentPage.bounds.size);
     
-    self.minimumZoomScale = zoomScale; self.maximumZoomScale = (zoomScale * ZOOM_MAXIMUM);
+    self.minimumZoomScale = zoomScale;
     
-    realMaximumZoom = self.maximumZoomScale; tempMaximumZoom = (realMaximumZoom * ZOOM_FACTOR);
+    self.maximumZoomScale = (zoomScale * ZOOM_MAXIMUM);
+    
+    realMaximumZoom = self.maximumZoomScale;
+    
+    tempMaximumZoom = (realMaximumZoom * ZOOM_FACTOR);
 }
 
 - (void)centerScrollViewContent
 {
-    CGFloat iw = 0.0f; CGFloat ih = 0.0f; // Content width and height insets
+    CGFloat iw = 0.0f;
     
-    CGSize boundsSize = self.bounds.size; CGSize contentSize = self.contentSize; // Sizes
+    CGFloat ih = 0.0f; // Content width and height insets
     
-    if (contentSize.width < boundsSize.width) iw = ((boundsSize.width - contentSize.width) * 0.5f);
+    CGSize boundsSize = self.bounds.size;
     
-    if (contentSize.height < boundsSize.height) ih = ((boundsSize.height - contentSize.height) * 0.5f);
+    CGSize contentSize = self.contentSize; // Sizes
+    
+    if (contentSize.width < boundsSize.width) {
+        iw = ((boundsSize.width - contentSize.width) * 0.5f);
+    }
+    
+    if (contentSize.height < boundsSize.height) {
+        ih = ((boundsSize.height - contentSize.height) * 0.5f);
+    }
     
     UIEdgeInsets insets = UIEdgeInsetsMake(ih, iw, ih, iw); // Create (possibly updated) content insets
     
-    if (UIEdgeInsetsEqualToEdgeInsets(self.contentInset, insets) == false) self.contentInset = insets;
+    if (UIEdgeInsetsEqualToEdgeInsets(self.contentInset, insets) == false) {
+        self.contentInset = insets;
+    }
 }
 
 - (instancetype)initWithFrame:(CGRect)frame document:(HXPDFDocument *)document page:(NSUInteger)page
@@ -223,7 +237,9 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
     {
         zoomScale *= ZOOM_FACTOR; // Zoom in by zoom factor amount
         
-        if (zoomScale > self.maximumZoomScale) zoomScale = self.maximumZoomScale;
+        if (zoomScale > self.maximumZoomScale) {
+            zoomScale = self.maximumZoomScale;
+        }
         
         CGRect zoomRect = [self zoomRectForScale:zoomScale withCenter:point];
         
@@ -256,7 +272,9 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
     {
         zoomScale /= ZOOM_FACTOR; // Zoom out by zoom factor amount
         
-        if (zoomScale < self.minimumZoomScale) zoomScale = self.minimumZoomScale;
+        if (zoomScale < self.minimumZoomScale) {
+            zoomScale = self.minimumZoomScale;
+        }
         
         CGRect zoomRect = [self zoomRectForScale:zoomScale withCenter:point];
         
