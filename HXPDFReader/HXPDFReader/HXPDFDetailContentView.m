@@ -37,7 +37,7 @@
 #define ZOOM_MAXIMUM 16.0f
 
 #define PAGE_THUMB_SMALL 144
-#define PAGE_THUMB_LARGE 240
+#define PAGE_THUMB_LARGE 256
 
 static void *ReaderContentViewContext = &ReaderContentViewContext;
 
